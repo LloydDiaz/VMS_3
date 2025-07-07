@@ -22,7 +22,13 @@
                     <flux:navlist.group expandable heading="Ticket Management" class="hidden lg:grid">
                         <flux:navlist.item href="#">Add Ticekt</flux:navlist.item>
                         <flux:navlist.item href="#">Search Ticket</flux:navlist.item>
+
                         <flux:navlist.item href="{{ route('violations') }}">Add Violation</flux:navlist.item>
+                    </flux:navlist.group>
+                    <flux:navlist.group expandable heading="Payment" class="hidden lg:grid">
+                        <flux:navlist.item href="{{ route('AssignTicketNumber') }}">Approved tct Number</flux:navlist.item>
+                        <flux:navlist.item href="#">Pay Ticket</flux:navlist.item>
+
                     </flux:navlist.group>
 
                     <flux:navlist.item icon="user" :href="route('userManagement')"
@@ -82,7 +88,7 @@
 
         <!-- Mobile User Menu -->
         <flux:header class="lg:hidden">
-        
+
 
             <flux:spacer />
 

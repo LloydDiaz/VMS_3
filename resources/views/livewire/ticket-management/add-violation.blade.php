@@ -50,7 +50,7 @@
         </div>
 
         <div x-show="showModal"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4 py-6 backdrop-blur-sm"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50  px-4 py-6 m"
             @keydown.escape.window="showModal = false">
 
             <!-- MODAL BOX -->
