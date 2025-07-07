@@ -1,6 +1,6 @@
 <div>
     <div class="p-6" x-data="{ showModal: false }">
-      
+
         <div class="mb-4 flex items-center justify-between">
             <flux:input wire:model.live="search" :label="__('')" type="text" required autofocus
                 :placeholder="__('Search  Name')" class="w-1/3" />
@@ -114,11 +114,11 @@
                         </div>
 
                         <div class="flex justify-end gap-2 pt-4">
-                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
-                                {{ __('Cancel') }}
-                            </flux:button>
                             <flux:button type="submit" variant="primary" class="w-full">
                                 {{ __('Create') }}
+                            </flux:button>
+                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
+                                {{ __('Cancel') }}
                             </flux:button>
                         </div>
                     </form>
@@ -133,7 +133,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if (session('user_success'))
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 toast: true,
                 position: 'top-end',

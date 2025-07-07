@@ -8,6 +8,7 @@ use App\Models\Violation;
 use Illuminate\Support\Facades\Auth;
 
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 
@@ -115,20 +116,27 @@ class AddViolation extends Component
             return abort(404);
         }
     }
-public function addViolationType()
-{
-    $this->validate([
-        'violation_type' => 'required|min:3|max:50',
-        'amount' => 'required|numeric'
-    ]);
+    public function addViolationType()
+    {
+        $this->validate([
+            'violation_type' => 'required|min:3|max:50',
+            'amount' => 'required|numeric'
+        ]);
 
-    Violation::create([
-        'violation_type' => $this->violation_type,
-        'amount' => $this->amount
-    ]);
+        Violation::create([
+            'violation_type' => $this->violation_type,
+            'amount' => $this->amount
+        ]);
 
-    session()->flash('violation_success', 'Violation added successfully.');
+        session()->flash('violation_success', 'Violation added successfully.');
 
-    return redirect()->route('violations');
-}
+        return redirect()->route('violations');
+    }
+    #[On('perform-delete')]
+    public function deleteViolation($id)
+    {
+        \App\Models\Violation::findOrFail($id)->delete();
+
+        $this->dispatch('violation-deleted');
+    }
 }

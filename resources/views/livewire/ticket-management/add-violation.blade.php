@@ -24,6 +24,7 @@
                     <tr class="border-b border-gray-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-900">
                         <th class="px-6 py-4">Violation Tupe</th>
                         <th class="px-6 py-4">Fine</th>
+                        <th class="px-6 py-4">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,12 @@
                             class="border-b border-gray-200 bg-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-white">
                             <td class="px-6 py-2">{{ $v->violation_type }} </td>
                             <td class="px-6 py-2">{{ $v->amount }}</td>
+                            <td class="px-6 py-2">
+                                <button class="delete-btn text-red-600 hover:underline" data-id="{{ $v->id }}">
+                                    Delete
+                                </button>
+
+                            </td>
 
                         </tr>
                     @endforeach
@@ -82,12 +89,13 @@
                         </div>
 
                         <div class="flex justify-end gap-2 pt-4">
-                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
-                                {{ __('Cancel') }}
-                            </flux:button>
                             <flux:button type="submit" variant="primary" class="w-full">
                                 {{ __('Add Violation') }}
                             </flux:button>
+                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
+                                {{ __('Cancel') }}
+                            </flux:button>
+
                         </div>
                     </form>
 
@@ -104,7 +112,7 @@
 
 @if (session('violation_success'))
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 toast: true,
                 position: 'top-end',
@@ -117,3 +125,39 @@
         });
     </script>
 @endif
+
+
+<script>
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.delete-btn')) {
+            const id = e.target.getAttribute('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This violation will be permanently deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('perform-delete', {
+                        id: id
+                    });
+                }
+            });
+        }
+    });
+
+    Livewire.on('violation-deleted', () => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Violation deleted successfully.',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+    });
+</script>
