@@ -53,7 +53,7 @@
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-transparent px-4 py-6 backdrop-blur"
+            class="fixed inset-0 z-50 flex items-center justify-center   bg-black/50 px-4 py-6 "
             aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none;">
 
             <!-- Modal Box -->
@@ -63,7 +63,7 @@
                 x-transition:leave="transition ease-in duration-200 transform"
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                class="mx-auto max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-xl bg-white p-6 shadow-xl transition-all sm:w-full sm:max-w-lg dark:bg-neutral-800"
+                class="mx-auto max-h-[90vh] border-2 w-full max-w-sm overflow-y-auto rounded-xl bg-neutral-50 p-6 shadow-xl transition-all sm:w-full sm:max-w-lg dark:bg-neutral-800"
                 @click.outside="showModal = false" @keydown.escape.window="showModal = false">
 
                 <!-- Modal Title -->
