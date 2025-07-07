@@ -101,21 +101,8 @@ class AddViolation extends Component
     }
 
 
-    //delete violation type
-    public function delete($id)
-    {
-        if (Auth::user()->user_role == 'admin' || Auth::user()->user_role == 'user') {
-            $user_id = Auth::user();
-            $violation = Violation::find($id);
-            $copy = clone $violation;
-            $old_violation_id = $copy->id;
-            $old_violation_type = $copy->violation_type;
-            $old_amount = $copy->amount;
-            Violation::find($id)->delete();
-        } else {
-            return abort(404);
-        }
-    }
+
+
     public function addViolationType()
     {
         $this->validate([

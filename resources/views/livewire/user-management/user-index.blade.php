@@ -20,6 +20,7 @@
                         <th class="px-6 py-4">Email</th>
                         <th class="px-6 py-4">Username</th>
                         <th class="px-6 py-4">user Role</th>
+                        <th class="px-6 py-4">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,11 @@
                             <td class="px-6 py-2">{{ $user->email }}</td>
                             <td class="px-6 py-2">{{ $user->username }}</td>
                             <td class="px-6 py-2">{{ $user->user_role }}</td>
+                            <td>
+                            <button class="delete-btn text-red-600 hover:underline" data-id="{{ $user->id }}">
+                                Delete
+                            </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -47,7 +53,7 @@
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4 py-6 backdrop-blur"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-transparent px-4 py-6 backdrop-blur"
             aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none;">
 
             <!-- Modal Box -->
@@ -142,3 +148,37 @@
         });
     </script>
 @endif
+<script>
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.delete-btn')) {
+            const id = e.target.getAttribute('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This User will be permanently deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('perform-delete', {
+                        id: id
+                    });
+                }
+            });
+        }
+    });
+
+    Livewire.on('User-deleted', () => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Violation deleted successfully.',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+    });
+</script>

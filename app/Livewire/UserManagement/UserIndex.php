@@ -4,6 +4,7 @@ namespace App\Livewire\UserManagement;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Livewire;
 
@@ -92,5 +93,13 @@ class UserIndex extends Component
             ->paginate(10);
 
         return view('livewire.user-management.user-index', compact('users'));
+    }
+
+    #[On('perform-delete')]
+    public function deleteViolation($id)
+    {
+        User::findOrFail($id)->delete();
+
+        $this->dispatch('User-deleted');
     }
 }
