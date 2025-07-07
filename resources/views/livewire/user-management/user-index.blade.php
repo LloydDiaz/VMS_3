@@ -42,94 +42,90 @@
 
 
 
+        <!-- Modal Backdrop -->
         <div x-show="showModal" @close-user-modal.window="showModal = false" @click.outside="showModal = false"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-gray-400 bg-opacity-50 backdrop-blur"
-            aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex min-h-screen items-end justify-center px-4 text-center sm:block sm:p-0 md:items-center">
-                <div x-cloak @click="showModal = false" x-show="showModal"
-                    x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100 transform"
-                    x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0"
-                    class="g-opacity-40 fixed inset-0 transition-opacity" aria-hidden="true">
-                </div>
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4 py-6 backdrop-blur"
+            aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none;">
 
-                <div x-cloak x-show="showModal" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave="transition ease-in duration-200 transform"
-                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    class="border-1 min-w-lg dark:border-n-700 my-20 inline-block w-full max-w-md transform rounded-xl bg-gray-50 p-6 text-left shadow-xl transition-all 2xl:max-w-2xl dark:bg-neutral-800">
+            <!-- Modal Box -->
+            <div x-cloak x-show="showModal" x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                class="mx-auto max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-xl bg-white p-6 shadow-xl transition-all sm:w-full sm:max-w-lg dark:bg-neutral-800"
+                @click.outside="showModal = false" @keydown.escape.window="showModal = false">
+
+                <!-- Modal Title -->
+                <h2 class="mb-6 text-center text-xl font-semibold text-gray-800 dark:text-white">Create New User</h2>
+
+                <!-- Modal Form -->
+                <form wire:submit.prevent="createUser" class="space-y-4">
+                    <!-- Role -->
                     <div>
-                        <h2 class="mb-4 text-center text-lg font-semibold">Create New User</h2>
-
-
+                        <flux:select wire:model="user_role" placeholder="Choose Role...">
+                            <flux:select.option>admin</flux:select.option>
+                            <flux:select.option>user</flux:select.option>
+                            <flux:select.option>cashier</flux:select.option>
+                            <flux:select.option>enforcer</flux:select.option>
+                        </flux:select>
                     </div>
 
+                    <!-- Name Fields -->
+                    <div>
+                        <flux:input wire:model="firstname" :label="__('First Name')" type="text" required autofocus
+                            placeholder="First name" />
+                    </div>
+                    <div>
+                        <flux:input wire:model="middlename" :label="__('Middle Name')" type="text"
+                            placeholder="Middle name" />
+                    </div>
+                    <div>
+                        <flux:input wire:model="lastname" :label="__('Last Name')" type="text" required
+                            placeholder="Last name" />
+                    </div>
+                    <div>
+                        <flux:input wire:model="xname" :label="__('Extension Name')" type="text"
+                            placeholder="Extension name" />
+                    </div>
 
+                    <!-- Email & Username -->
+                    <div>
+                        <flux:input wire:model="email" :label="__('Email Address')" type="email"
+                            placeholder="email@example.com" />
+                    </div>
+                    <div>
+                        <flux:input wire:model="username" :label="__('User Name')" type="text"
+                            placeholder="User name" />
+                    </div>
 
-                    <form wire:submit.prevent="createUser" class="space-y-4">
+                    <!-- Password -->
+                    <div>
+                        <flux:input wire:model="password" :label="__('Password')" type="password" required
+                            placeholder="Password" viewable />
+                    </div>
 
-                        <div>
-                            <flux:select wire:model="user_role" placeholder="Choose Role...">
-                                <flux:select.option>admin</flux:select.option>
-                                <flux:select.option>user</flux:select.option>
-                                <flux:select.option>cashier</flux:select.option>
-                                <flux:select.option>enforcer</flux:select.option>
-                            </flux:select>
-                        </div>
-                        <div>
-                            <flux:input wire:model="firstname" :label="__('First Name')" type="text" required
-                                autofocus autocomplete="first name" :placeholder="__('First name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="middlename" :label="__('Middle Name')" type="text" autofocus
-                                autocomplete="middlename" :placeholder="__('Middle name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="lastname" :label="__('Last Name')" type="text" required autofocus
-                                autocomplete="lastname" :placeholder="__('Last name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="xname" :label="__('Extension Name')" type="text" autofocus
-                                autocomplete="xname" :placeholder="__('Extension name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="email" :label="__('Email Address')" type="email" autofocus
-                                autocomplete="email" :placeholder="__('email@example.com')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="username" :label="__('User Name')" type="text" autofocus
-                                autocomplete="email" :placeholder="__('User Name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="password" :label="__('Password')" type="password" required
-                                autocomplete="new-password" :placeholder="__('Password')" viewable />
-                        </div>
-
-                        <div class="flex justify-end gap-2 pt-4">
-                            <flux:button type="submit" variant="primary" class="w-full">
-                                {{ __('Create') }}
-                            </flux:button>
-                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
-                                {{ __('Cancel') }}
-                            </flux:button>
-                        </div>
-                    </form>
-
-                </div>
-
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col justify-end gap-2 pt-4 sm:flex-row">
+                        <flux:button type="submit" variant="primary" class="w-full">
+                            {{ __('Create') }}
+                        </flux:button>
+                        <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
+                            {{ __('Cancel') }}
+                        </flux:button>
+                    </div>
+                </form>
             </div>
-
         </div>
+
+
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if (session('user_success'))
     <script>

@@ -49,62 +49,47 @@
 
         </div>
 
-        <div x-show="showModal" @close-user-modal.window="showModal = false" @click.outside="showModal = false"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-gray-400 bg-opacity-50 backdrop-blur"
-            aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex min-h-screen items-end justify-center px-4 text-center sm:block sm:p-0 md:items-center">
-                <div x-cloak @click="showModal = false" x-show="showModal"
-                    x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100 transform"
-                    x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0"
-                    class="g-opacity-40 fixed inset-0 transition-opacity" aria-hidden="true">
-                </div>
+        <div x-show="showModal"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4 py-6 backdrop-blur-sm"
+            @keydown.escape.window="showModal = false">
 
-                <div x-cloak x-show="showModal" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave="transition ease-in duration-200 transform"
-                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    class="border-1 min-w-lg dark:border-n-700 my-20 inline-block w-full max-w-md transform rounded-xl bg-gray-50 p-6 text-left shadow-xl transition-all 2xl:max-w-2xl dark:bg-neutral-800">
+            <!-- MODAL BOX -->
+            <div x-cloak x-show="showModal" x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                class="mx-auto max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl transition-all sm:p-8 dark:bg-neutral-800"
+                @click.outside="showModal = false">
+
+                <!-- MODAL CONTENT -->
+                <h2 class="mb-4 text-center text-xl font-semibold">Add Violation</h2>
+
+                <form wire:submit.prevent="addViolationType" class="space-y-4">
                     <div>
-                        <h2 class="mb-4 text-center text-lg font-semibold">Add Violation</h2>
-
-
+                        <flux:input wire:model="violation_type" :label="__('Violation Type')" type="text" required
+                            autofocus />
                     </div>
 
+                    <div>
+                        <flux:input wire:model="amount" :label="__('Amount')" type="text" />
+                    </div>
 
-
-                    <form wire:submit.prevent="addViolationType" class="space-y-4">
-
-
-                        <div>
-                            <flux:input wire:model="violation_type" :label="__('Violation Type')" type="text"
-                                required autofocus autocomplete="violation_type" :placeholder="__('First name')" />
-                        </div>
-
-                        <div>
-                            <flux:input wire:model="amount" :label="__('Amount')" type="text" autofocus
-                                autocomplete="amount" :placeholder="__('Amount')" />
-                        </div>
-
-                        <div class="flex justify-end gap-2 pt-4">
-                            <flux:button type="submit" variant="primary" class="w-full">
-                                {{ __('Add Violation') }}
-                            </flux:button>
-                            <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
-                                {{ __('Cancel') }}
-                            </flux:button>
-
-                        </div>
-                    </form>
-
-                </div>
-
+                    <div class="flex justify-end gap-2 pt-4">
+                        <flux:button type="submit" variant="primary" class="w-full">
+                            {{ __('Add Violation') }}
+                        </flux:button>
+                        <flux:button type="button" @click="showModal = false" variant="danger" class="w-full">
+                            {{ __('Cancel') }}
+                        </flux:button>
+                    </div>
+                </form>
             </div>
-
         </div>
+
     </div>
+</div>
 </div>
 
 
