@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('middlename');
-            $table->string('xname');
+            $table->string('middlename')->nullable();
+            $table->string('xname')->nullable();
             $table->string('username')->collation('utf8mb4_bin')->unique();
             $table->string('user_role');
             $table->string('email')->unique();

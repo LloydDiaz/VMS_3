@@ -3,10 +3,10 @@
 namespace App\Livewire\Settings;
 
 use App\Models\User;
-use Livewire\Component;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
+use Livewire\Component;
 
 class Profile extends Component
 {
@@ -25,7 +25,7 @@ class Profile extends Component
         $this->firstname = Auth::user()->firstname;
         $this->lastname = Auth::user()->lastname;
         $this->middlename = Auth::user()->middlename;
-        $this->xname = Auth::user()->xname;
+        $this->xname = Auth::user()->xname ?? '';
         $this->email = Auth::user()->email;
     }
 

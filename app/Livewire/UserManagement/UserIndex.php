@@ -14,6 +14,7 @@ class UserIndex extends Component
     public string $lastname = '';
     public string $middlename = '';
     public string $xname = '';
+    public string $user_role = '';
 
     public string $email = '';
 
@@ -34,6 +35,7 @@ class UserIndex extends Component
         'lastname' => 'required|string|max:255',
         'username' => 'required|string|max:255|unique:users,username',
         'email' => 'required|email|unique:users,email',
+        'user_role' => 'required',
         'password' => 'required|min:6'
     ];
 
@@ -68,14 +70,15 @@ class UserIndex extends Component
             'lastname' => $this->lastname,
             'middlename' => $this->middlename,
             'xname' => $this->xname,
+            'user_role' => $this->user_role,
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
 
-        session()->flash('message', 'User created successfully!');
-        $this->reset(['firstname', 'lastname', 'middlename', 'xname', 'username', 'email', 'password', 'showModal']);
-        $this->dispatch('close-user-modal');
+        session()->flash('user_success', 'User Created successfully.');
+
+        return redirect()->route('userManagement');
     }
 
 

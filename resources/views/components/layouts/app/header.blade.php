@@ -120,5 +120,7 @@
         {{ $slot }}
 
         @fluxScripts
+        <x-livewire-alert::scripts />
+        @include('sweetalert::alert')
     </body>
 </html>
