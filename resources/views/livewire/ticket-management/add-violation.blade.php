@@ -9,7 +9,7 @@
 
         <!-- Search and Create -->
         <div class="mb-4 flex items-center justify-between">
-            <flux:input wire:model.live="search" :label="__('')" type="text" required autofocus
+            <flux:input wire:model.live="search" :label="__('')" type="text" required 
                 :placeholder="__('Search  Name')" class="w-1/3" />
 
             <button @click="showModal = true"
@@ -49,9 +49,13 @@
 
         </div>
 
-        <div x-show="showModal"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50  px-4 py-6 m"
-            @keydown.escape.window="showModal = false">
+         <!-- Modal Backdrop -->
+        <div x-show="showModal" @close-user-modal.window="showModal = false" @click.outside="showModal = false"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-50 flex items-center justify-center   bg-black/50 px-4 py-6 "
+            aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none;">
 
             <!-- MODAL BOX -->
             <div x-cloak x-show="showModal" x-transition:enter="transition ease-out duration-300 transform"

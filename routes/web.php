@@ -1,13 +1,14 @@
 <?php
 
+use App\Livewire\Settings\Profile;
+use App\Livewire\Settings\Password;
+use App\Livewire\Settings\Appearance;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\UserManagement\UserIndex;
+use App\Livewire\TicketManagement\Addticket;
 use App\Livewire\Cashier\AddTicketnumberRange;
 use App\Livewire\Enforcer\RequestTicketNumber;
-use App\Livewire\Settings\Appearance;
-use App\Livewire\Settings\Password;
-use App\Livewire\Settings\Profile;
 use App\Livewire\TicketManagement\AddViolation;
-use App\Livewire\UserManagement\UserIndex;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', UserIndex::class)->name('userManagement');
     Route::get('/casher_assign_ticketnumber', AddTicketnumberRange::class)->name('AssignTicketNumber');
     Route::get('/request_ticketnumber', RequestTicketNumber::class)->name('RequestTicketNumber');
+    Route::get('/addticket', Addticket::class)->name('addticket');
 });
 
 require __DIR__ . '/auth.php';

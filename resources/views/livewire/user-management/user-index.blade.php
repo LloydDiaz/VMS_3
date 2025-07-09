@@ -2,7 +2,7 @@
     <div class="p-6" x-data="{ showModal: false }">
 
         <div class="mb-4 flex items-center justify-between">
-            <flux:input wire:model.live="search" :label="__('')" type="text" required autofocus
+            <flux:input wire:model.live="search" :label="__('')" type="text" required 
                 :placeholder="__('Search  Name')" class="w-1/3" />
 
             <button @click="showModal = true"

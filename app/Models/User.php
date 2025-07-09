@@ -6,16 +6,16 @@ namespace App\Models;
 use App\Models\Ticket;
 use App\Models\TicketRange;
 
+use Illuminate\Support\Str;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+
+
+
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-
-
-
-
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
@@ -120,7 +120,7 @@ class User extends Authenticatable
         return $this->hasMany(TicketRange::class, 'user_id', 'id');
     }
 
-    public function issueTicketNumber(): int
+    public function ticketnumber(): int
     {
         $year = now()->year;
 

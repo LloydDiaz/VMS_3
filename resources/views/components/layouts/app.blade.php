@@ -8,6 +8,7 @@
                 });
             });
         </script>
+        
     </flux:main>
-
+@livewire('bottom-nav')
 </x-layouts.app.sidebar>
